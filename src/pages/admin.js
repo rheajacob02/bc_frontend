@@ -3,13 +3,67 @@ import { Buffer } from "buffer";
 import { create } from "kubo-rpc-client";
 import axios from "axios";
 
-const client = create("/ip4/13.232.187.19/tcp/5001");
+const client = create("/ip4/65.2.190.0/tcp/5001");
 
 export const Admin = () => {
   const [buffer, setBuffer] = useState(null);
   const [name, setName] = useState("");
   const [regNumber, setRegNumber] = useState("");
   const [timeTaken, setTimeTaken] = useState(0);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post("http://127.0.0.1:3001/adminLogin", {
+        username,
+        password,
+      });
+
+      if (response.status === 200) {
+        setIsLoggedIn(true);
+        setMessage("Login successful");
+      } else {
+        setMessage("Invalid credentials");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setMessage("Error during login. Please try again.");
+    }
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <div>
+        <h3>Admin Login:</h3>
+        <form onSubmit={handleLogin}>
+          <label>Username:</label>
+          <input
+            type="text"
+            placeholder="Enter Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <br />
+          <label>Password:</label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <br />
+          <button type="submit">Login</button>
+        </form>
+        <p>{message}</p>
+      </div>
+    );
+  }
 
   const handleChange = (event) => {
     event.stopPropagation();

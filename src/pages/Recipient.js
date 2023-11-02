@@ -3,27 +3,49 @@ import axios from "axios";
 
 export const Recipient = () => {
   const [regNumber, setRegNumber] = useState("");
-  const [documents, setDocuments] = useState([]); // To store fetched CIDs of documents
+  const [phoneNumber, setPhoneNumber] = useState(""); // State hook for phone number
+  const [documents, setDocuments] = useState([]);
+  const [message, setMessage] = useState(""); // To show messages to the user
 
   const handleFetchDocuments = async () => {
+    if (!regNumber || !phoneNumber) {
+      setMessage("Please enter both registration number and phone number.");
+      return;
+    }
+
     let start = performance.now();
     try {
       const response = await axios.get(
-        `http://127.0.0.1:3001/getDocumentByRegNumber?regNumber=${regNumber}`
+        `http://127.0.0.1:3001/getDocumentByRegNumber`,
+        {
+          params: {
+            regNumber,
+            phoneNumber,
+          },
+        }
       );
-      setDocuments(response.data.cids);
-      console.log(response.data.cids); // Backend returns an array of CIDs
+      if (response.status === 200 && response.data.cids) {
+        setDocuments(response.data.cids);
+        setMessage("");
+      } else {
+        setMessage("No documents found or access denied.");
+        setDocuments([]);
+      }
       let end = performance.now();
-      console.log("Time taken to fetch fromm ipfs= ", end - start);
+      console.log(
+        "Time taken to fetch from IPFS: ",
+        (end - start).toFixed(4),
+        "ms"
+      );
     } catch (error) {
       console.error("Error fetching documents:", error);
+      setMessage("Error fetching documents. Please try again.");
     }
   };
 
   return (
-    <div className="">
+    <div>
       <h3>Fetch Your Documents:</h3>
-
       <div>
         <label>Registration Number:</label>
         <input
@@ -32,7 +54,17 @@ export const Recipient = () => {
           value={regNumber}
           onChange={(e) => setRegNumber(e.target.value)}
         />
+        <br />
+        <label>Phone Number:</label>
+        <input
+          type="tel"
+          placeholder="Enter Phone Number"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+        <br />
         <button onClick={handleFetchDocuments}>Fetch Documents</button>
+        {message && <p>{message}</p>} {/* Display message to the user */}
       </div>
 
       {documents.length > 0 && (
@@ -41,10 +73,9 @@ export const Recipient = () => {
           <ul>
             {documents.map((cid, index) => (
               <li key={index}>
-                {/* Link to download the document from IPFS using CID */}
                 <button>
                   <a
-                    href={`http://13.232.187.19:8080/ipfs/${cid}`}
+                    href={`http://65.2.190.0:8080/ipfs/${cid}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
