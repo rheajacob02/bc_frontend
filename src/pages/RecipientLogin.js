@@ -14,8 +14,7 @@ export const RecipientLogin = () => {
         regNumber,
         password,
       });
-      setResponse(res);
-      console.log(res);
+      setResponse(res.data);
     } catch (error) {
       console.error("Error logging in", error);
     }
@@ -41,7 +40,7 @@ export const RecipientLogin = () => {
         <br />
         <button>Submit</button>
       </form>
-      <p>{response}</p>
+      {/* <p>{response}</p> */}
     </div>
   );
 };

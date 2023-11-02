@@ -2,20 +2,20 @@ import { React, useState } from "react";
 import { Buffer } from "buffer";
 import { create } from "kubo-rpc-client";
 import axios from "axios";
+import './Admin.css';
 
 const client = create("/ip4/65.2.190.0/tcp/5001");
 
 export const Admin = () => {
   const [buffer, setBuffer] = useState(null);
   const [name, setName] = useState("");
-  const [regNumber, setRegNumber] = useState(""); 
-  const [timeTaken, setTimeTaken] = useState(0); 
+  const [regNumber, setRegNumber] = useState("");
+  const [timeTaken, setTimeTaken] = useState(0);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [message, setMessage] = useState("");
 
-  // Admin login handler
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -36,33 +36,36 @@ export const Admin = () => {
     }
   };
 
-   // If not logged in, display the login form
-   if (!isLoggedIn) {
+  if (!isLoggedIn) {
     return (
-      <div>
+      <div className="login-container">
         <h3>Admin Login:</h3>
-        <form onSubmit={handleLogin}>
-          <label>Username:</label>
-          <input
-            type="text"
-            placeholder="Enter Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <br />
-          <label>Password:</label>
-          <input
-            type="password"
-            placeholder="Enter Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <br />
-          <button type="submit">Login</button>
+        <form onSubmit={handleLogin} className="login-form">
+          <div className="input-group">
+            <label>Username:</label>
+            <input
+              type="text"
+              placeholder="Enter Username"
+              className="input-field"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              placeholder="Enter Password"
+              className="input-field"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="submit-btn">Login</button>
         </form>
-        <p>{message}</p>
+        <p className="message">{message}</p>
       </div>
     );
   }
@@ -122,25 +125,29 @@ export const Admin = () => {
   };
 
   return (
-    <div className="">
+    <div className="upload-container">
       <h3>Upload File:</h3>
-      <form onSubmit={handleSubmit}>
-        <label>Registration Number:</label> 
-        <input
-          type="text"
-          placeholder="Enter Registration Number"
-          value={regNumber}
-          onChange={(e) => setRegNumber(e.target.value)}
-          required
-        />
-        <br />
-        <input id="file_input" type="file" onChange={handleChange} />
-        <button type="submit">Submit</button>
+      <form onSubmit={handleSubmit} className="upload-form">
+        <div className="input-group">
+          <label>Registration Number:</label>
+          <input
+            type="text"
+            placeholder="Enter Registration Number"
+            className="input-field"
+            value={regNumber}
+            onChange={(e) => setRegNumber(e.target.value)}
+            required
+          />
+        </div>
+        <div className="file-input-group">
+          <input id="file_input" type="file" className="file-input" onChange={handleChange} />
+          <button type="submit" className="submit-btn">Submit</button>
+        </div>
       </form>
-      {/* Displaying the time taken */}
-      <p>
+      <p className="time-taken">
         Time taken to store the document in IPFS: {timeTaken.toFixed(4)} seconds
       </p>
     </div>
   );
+
 };
