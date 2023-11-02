@@ -10,7 +10,7 @@ export const Recipient = () => {
     let start = performance.now();
     try {
       const response = await axios.get(
-        `http://65.2.190.0:3001/getDocumentByRegNumber`,
+        `http://65.2.190.0git:3001/getDocumentByRegNumber`,
         { params: { regNumber, phoneNumber } } // Pass both regNumber and phoneNumber as query parameters
       );
       setDocuments(response.data.cids);
