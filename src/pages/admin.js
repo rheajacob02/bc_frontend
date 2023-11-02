@@ -138,7 +138,9 @@ export const Admin = () => {
         <button type="submit">Submit</button>
       </form>
       {/* Displaying the time taken */}
-      <p>Time taken to store the document in IPFS: {timeTaken.toFixed(4)} seconds</p>
+      <p>
+        Time taken to store the document in IPFS: {timeTaken.toFixed(4)} seconds
+      </p>
     </div>
   );
 };
