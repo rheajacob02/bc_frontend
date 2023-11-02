@@ -1,6 +1,6 @@
 # Running the project locally
 
-### 'npm i'
+### `npm i`
 
 Installs all required dependancies
 
