@@ -1,5 +1,9 @@
 # Running the project locally
 
+### 'npm i'
+
+Installs all required dependancies
+
 In the project directory, you can run:
 
 ### `npm start`
