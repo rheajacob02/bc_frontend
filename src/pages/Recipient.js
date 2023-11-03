@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import './Recipient.css';
 
 export const Recipient = () => {
   const [regNumber, setRegNumber] = useState("");
@@ -16,7 +17,7 @@ export const Recipient = () => {
     let start = performance.now();
     try {
       const response = await axios.get(
-        `http://127.0.0.1:3001/getDocumentByRegNumber`,
+        `http://65.2.190.0:3001/getDocumentByRegNumber`,
         {
           params: {
             regNumber,
@@ -44,44 +45,46 @@ export const Recipient = () => {
   };
 
   return (
-    <div>
-      <h3>Fetch Your Documents:</h3>
-      <div>
-        <label>Registration Number:</label>
+    <div className="recipient-container">
+      <h3 className="title">Fetch Your Documents:</h3>
+      <div className="input-group">
+        <label className="input-label">Registration Number:</label>
         <input
+          className="input-field"
           type="text"
           placeholder="Enter Registration Number"
           value={regNumber}
           onChange={(e) => setRegNumber(e.target.value)}
         />
         <br />
-        <label>Phone Number:</label>
+        <label className="input-label">Phone Number:</label>
         <input
+          className="input-field"
           type="tel"
           placeholder="Enter Phone Number"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
         <br />
-        <button onClick={handleFetchDocuments}>Fetch Documents</button>
-        {message && <p>{message}</p>} {/* Display message to the user */}
+        <button className="fetch-button" onClick={handleFetchDocuments}>
+          Fetch Documents
+        </button>
+        {message && <p className="message">{message}</p>}
       </div>
-
       {documents.length > 0 && (
-        <div>
-          <h4>Your Documents:</h4>
+        <div className="documents-list">
+          <h4 className="title">Your Documents:</h4>
           <ul>
             {documents.map((cid, index) => (
-              <li key={index}>
-                <button>
-                  <a
-                    href={`http://65.2.190.0:8080/ipfs/${cid}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Document {index + 1}
-                  </a>
-                </button>
+              <li key={index} className="document-item">
+                <a
+                  className="document-link"
+                  href={`http://65.2.190.0:8080/ipfs/${cid}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Document {index + 1}
+                </a>
               </li>
             ))}
           </ul>

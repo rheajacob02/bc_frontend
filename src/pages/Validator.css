@@ -1,0 +1,74 @@
+.validator-container {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .file-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #file-upload-button{
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  button{
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+
+  }
+  
+  .validate-button {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  button{
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+
+  }
+  
+  .validate-button:hover {
+    background-color: #45a049;
+  }
+  
+  .result-message {
+    color: #333;
+    font-size: 14px;
+  }
+  
